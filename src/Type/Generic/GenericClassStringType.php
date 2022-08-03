@@ -21,7 +21,6 @@ use function sprintf;
 /** @api */
 class GenericClassStringType extends ClassStringType
 {
-
 	/** @api */
 	public function __construct(private Type $type)
 	{
@@ -172,4 +171,11 @@ class GenericClassStringType extends ClassStringType
 		return new self($properties['type']);
 	}
 
+	public function tryRemove(Type $typeToRemove): ?Type
+	{
+		$className = $this->type->describe(VerbosityLevel::value());
+		$classType = new ObjectType($className);
+
+		return $classType->tryRemove($typeToRemove);
+	}
 }
